@@ -1,5 +1,6 @@
 const config = {
   plugins: {
+    "postcss-tw-auto-reference": {},
     "@tailwindcss/postcss": {},
   },
 };
