@@ -1,11 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { CardRoot } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import {
   Send,
   CheckCircle2,
@@ -16,6 +10,13 @@ import {
   AtSign,
   Camera,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { CardRoot } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { getClientDictionary } from "@/lib/client-dictionaries";
 
 const GOOGLE_FORM_ACTION =
@@ -60,15 +61,17 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12 space-y-8">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <main className="mx-auto max-w-4xl space-y-8 px-4 py-12">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div className="space-y-2">
-          <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs">
+          <Badge className="border border-amber-500/20 bg-amber-500/10 text-xs text-amber-600 dark:text-amber-400">
             {dict.contact.badge}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">{dict.contact.title}</h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-xl">
-            {dict.contact.desc} <span className="font-semibold text-zinc-900 dark:text-zinc-100">awaiden</span> {dict.contact.descSub}
+          <p className="max-w-xl text-sm text-zinc-500 dark:text-zinc-400">
+            {dict.contact.desc}{" "}
+            <span className="font-semibold text-zinc-900 dark:text-zinc-100">awaiden</span>{" "}
+            {dict.contact.descSub}
           </p>
         </div>
 
@@ -76,7 +79,7 @@ export default function ContactPage() {
           href={GOOGLE_FORM_VIEW_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium transition-colors shrink-0 self-start sm:self-auto"
+          className="inline-flex shrink-0 items-center gap-2 self-start rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-200 sm:self-auto dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800"
         >
           <FileText className="h-3.5 w-3.5 text-blue-500" />
           <span>{dict.contact.openForm}</span>
@@ -84,19 +87,17 @@ export default function ContactPage() {
         </a>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Contact Form */}
-        <CardRoot className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6">
+        <CardRoot className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
           {submitted ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center space-y-3">
+            <div className="flex flex-col items-center justify-center space-y-3 py-12 text-center">
               <CheckCircle2 className="h-10 w-10 text-emerald-500" />
               <h3 className="text-base font-semibold">{dict.contact.sentTitle}</h3>
-              <p className="text-xs text-zinc-500 max-w-xs">
-                {dict.contact.sentDesc}
-              </p>
+              <p className="max-w-xs text-xs text-zinc-500">{dict.contact.sentDesc}</p>
               <Button
                 onClick={() => setSubmitted(false)}
-                className="mt-2 text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                className="mt-2 bg-zinc-100 text-xs text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
               >
                 {dict.contact.sendAnother}
               </Button>
@@ -104,56 +105,64 @@ export default function ContactPage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">{dict.contact.name}</label>
+                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {dict.contact.name}
+                </label>
                 <Input
                   type="text"
                   name="entry.1169420488"
                   required
                   placeholder={dict.contact.namePlaceholder}
-                  className="bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-sm h-10 w-full rounded-md"
+                  className="h-10 w-full rounded-md border-zinc-200 bg-zinc-50 text-sm dark:border-zinc-800 dark:bg-zinc-950"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">{dict.contact.email}</label>
+                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {dict.contact.email}
+                </label>
                 <Input
                   type="email"
                   name="entry.399245914"
                   required
                   placeholder={dict.contact.emailPlaceholder}
-                  className="bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-sm h-10 w-full rounded-md"
+                  className="h-10 w-full rounded-md border-zinc-200 bg-zinc-50 text-sm dark:border-zinc-800 dark:bg-zinc-950"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">{dict.contact.subject}</label>
+                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {dict.contact.subject}
+                </label>
                 <Input
                   type="text"
                   name="entry.279550735"
                   required
                   placeholder={dict.contact.subjectPlaceholder}
-                  className="bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-sm h-10 w-full rounded-md"
+                  className="h-10 w-full rounded-md border-zinc-200 bg-zinc-50 text-sm dark:border-zinc-800 dark:bg-zinc-950"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">{dict.contact.message}</label>
+                <label className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {dict.contact.message}
+                </label>
                 <textarea
                   name="entry.362215455"
                   required
                   rows={4}
                   placeholder={dict.contact.messagePlaceholder}
-                  className="w-full p-3 text-sm rounded-md bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-950 dark:focus:ring-zinc-300"
+                  className="w-full rounded-md border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-900 focus:ring-2 focus:ring-zinc-950 focus:outline-none dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-zinc-300"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-10 bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 text-xs font-medium rounded-md flex items-center justify-center gap-2"
+                className="flex h-10 w-full items-center justify-center gap-2 rounded-md bg-zinc-900 text-xs font-medium text-zinc-100 hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
               >
                 {isSubmitting ? (
-                  <div className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
                 ) : (
                   <>
                     <Send className="h-3.5 w-3.5" />
@@ -167,15 +176,17 @@ export default function ContactPage() {
 
         {/* Social Cards & Direct Channels */}
         <div className="space-y-4">
-          <div className="p-5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
-            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">{dict.contact.socials}</h3>
-            
+          <div className="space-y-3 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+              {dict.contact.socials}
+            </h3>
+
             <div className="space-y-2">
               <a
                 href="https://x.com/_awaiden"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors"
+                className="flex items-center justify-between rounded-lg border border-zinc-200 p-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/60"
               >
                 <div className="flex items-center gap-3">
                   <AtSign className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
@@ -191,7 +202,7 @@ export default function ContactPage() {
                 href="https://instagram.com/_awaiden"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors"
+                className="flex items-center justify-between rounded-lg border border-zinc-200 p-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/60"
               >
                 <div className="flex items-center gap-3">
                   <Camera className="h-4 w-4 text-pink-500" />
@@ -207,7 +218,7 @@ export default function ContactPage() {
                 href="https://github.com/awaiden"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors"
+                className="flex items-center justify-between rounded-lg border border-zinc-200 p-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/60"
               >
                 <div className="flex items-center gap-3">
                   <FolderGit2 className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />

@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import { Globe, ChevronDown, Check } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Globe, ChevronDown, Check } from "lucide-react";
+import React from "react";
+
 import {
   MenuRoot,
   MenuTrigger,
@@ -36,21 +37,16 @@ export function LanguageDropdown() {
   const pathname = usePathname();
 
   const currentLocaleCode =
-    LANGUAGES.find(
-      (l) => pathname === `/${l.code}` || pathname.startsWith(`/${l.code}/`)
-    )?.code || "en";
+    LANGUAGES.find((l) => pathname === `/${l.code}` || pathname.startsWith(`/${l.code}/`))?.code ||
+    "en";
 
-  const currentLang =
-    LANGUAGES.find((l) => l.code === currentLocaleCode) || LANGUAGES[0];
+  const currentLang = LANGUAGES.find((l) => l.code === currentLocaleCode) || LANGUAGES[0];
 
   const getLocalePath = (targetLocale: string) => {
     if (pathname === `/${currentLocaleCode}`) {
       return `/${targetLocale}`;
     }
-    return pathname.replace(
-      new RegExp(`^/${currentLocaleCode}(/|$)`),
-      `/${targetLocale}$1`
-    );
+    return pathname.replace(new RegExp(`^/${currentLocaleCode}(/|$)`), `/${targetLocale}$1`);
   };
 
   return (
@@ -59,43 +55,41 @@ export function LanguageDropdown() {
         render={
           <button
             type="button"
-            className="h-8 px-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-medium flex items-center gap-1.5 transition-colors shadow-2xs cursor-pointer"
+            className="flex h-8 cursor-pointer items-center gap-1.5 rounded-md border border-zinc-200 bg-white px-2.5 text-xs font-medium text-zinc-800 shadow-2xs transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
             aria-label="Select Language"
           />
         }
       >
         <Globe className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400" />
         <span className="text-xs">{currentLang.flag}</span>
-        <span className="uppercase font-semibold text-[11px]">
-          {currentLang.code}
-        </span>
+        <span className="text-[11px] font-semibold uppercase">{currentLang.code}</span>
         <ChevronDown className="h-3.5 w-3.5 text-zinc-400" />
       </MenuTrigger>
 
       <MenuPortal>
         <MenuPositioner sideOffset={6} align="end">
-          <MenuPopup className="w-44 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md p-1.5 shadow-xl z-50">
+          <MenuPopup className="z-50 w-44 rounded-xl border border-zinc-200 bg-white/95 p-1.5 shadow-xl backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/95">
             <MenuGroup>
-              <MenuGroupLabel className="px-2 py-1 text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">
+              <MenuGroupLabel className="px-2 py-1 text-[10px] font-semibold tracking-wider text-zinc-400 uppercase">
                 Select Language
               </MenuGroupLabel>
-              <div className="space-y-0.5 max-h-64 overflow-y-auto">
+              <div className="max-h-64 space-y-0.5 overflow-y-auto">
                 {LANGUAGES.map((lang) => {
                   const isSelected = lang.code === currentLocaleCode;
                   return (
                     <MenuItem key={lang.code} render={<Link href={getLocalePath(lang.code)} />}>
-                      <div className={`w-full flex items-center justify-between px-2 py-1 rounded-md text-xs font-medium transition-colors ${
-                        isSelected
-                          ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold"
-                          : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
-                      }`}>
+                      <div
+                        className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-xs font-medium transition-colors ${
+                          isSelected
+                            ? "bg-zinc-100 font-semibold text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                            : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                        }`}
+                      >
                         <div className="flex items-center gap-2">
                           <span>{lang.flag}</span>
                           <span>{lang.name}</span>
                         </div>
-                        {isSelected && (
-                          <Check className="h-3.5 w-3.5 text-emerald-500" />
-                        )}
+                        {isSelected && <Check className="h-3.5 w-3.5 text-emerald-500" />}
                       </div>
                     </MenuItem>
                   );

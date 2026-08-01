@@ -1,13 +1,14 @@
+import { Code2, Terminal, Cpu } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CardRoot } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { SeparatorRoot } from "@/components/ui/separator";
-import { Code2, Terminal, Cpu } from "lucide-react";
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
-import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -35,39 +36,34 @@ export async function generateStaticParams() {
   ];
 }
 
-export default async function AboutPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang);
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12 space-y-10">
+    <main className="mx-auto max-w-4xl space-y-10 px-4 py-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-        <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-2xl overflow-hidden border-2 border-zinc-200 dark:border-zinc-800 shadow-md shrink-0">
+      <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 border-zinc-200 shadow-md sm:h-24 sm:w-24 dark:border-zinc-800">
           <Image
             src="/logo.jpeg"
             alt="awaiden logo"
             width={96}
             height={96}
-            className="object-cover w-full h-full"
+            className="h-full w-full object-cover"
             priority
           />
         </div>
         <div className="space-y-3">
-          <Badge className="bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 text-xs">
+          <Badge className="border border-purple-500/20 bg-purple-500/10 text-xs text-purple-600 dark:text-purple-400">
             {dict.about.badge}
           </Badge>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            {dict.about.title}
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed max-w-2xl">
-            I&apos;m <span className="font-semibold text-zinc-900 dark:text-zinc-100">awaiden</span>. {dict.about.intro}
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{dict.about.title}</h1>
+          <p className="max-w-2xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+            I&apos;m <span className="font-semibold text-zinc-900 dark:text-zinc-100">awaiden</span>
+            . {dict.about.intro}
           </p>
         </div>
       </div>
@@ -75,35 +71,29 @@ export default async function AboutPage({
       <SeparatorRoot className="border-zinc-200 dark:border-zinc-800" />
 
       {/* Principles */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <CardRoot className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 space-y-2">
-          <div className="h-8 w-8 rounded-md bg-blue-500/10 text-blue-500 flex items-center justify-center">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <CardRoot className="space-y-2 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500/10 text-blue-500">
             <Code2 className="h-4 w-4" />
           </div>
           <h3 className="text-sm font-semibold">{dict.about.cleanCode}</h3>
-          <p className="text-xs text-zinc-500 leading-relaxed">
-            {dict.about.cleanCodeDesc}
-          </p>
+          <p className="text-xs leading-relaxed text-zinc-500">{dict.about.cleanCodeDesc}</p>
         </CardRoot>
 
-        <CardRoot className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 space-y-2">
-          <div className="h-8 w-8 rounded-md bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+        <CardRoot className="space-y-2 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-500">
             <Cpu className="h-4 w-4" />
           </div>
           <h3 className="text-sm font-semibold">{dict.about.performance}</h3>
-          <p className="text-xs text-zinc-500 leading-relaxed">
-            {dict.about.performanceDesc}
-          </p>
+          <p className="text-xs leading-relaxed text-zinc-500">{dict.about.performanceDesc}</p>
         </CardRoot>
 
-        <CardRoot className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 space-y-2">
-          <div className="h-8 w-8 rounded-md bg-purple-500/10 text-purple-500 flex items-center justify-center">
+        <CardRoot className="space-y-2 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-purple-500/10 text-purple-500">
             <Terminal className="h-4 w-4" />
           </div>
           <h3 className="text-sm font-semibold">{dict.about.dx}</h3>
-          <p className="text-xs text-zinc-500 leading-relaxed">
-            {dict.about.dxDesc}
-          </p>
+          <p className="text-xs leading-relaxed text-zinc-500">{dict.about.dxDesc}</p>
         </CardRoot>
       </div>
 
@@ -113,23 +103,48 @@ export default async function AboutPage({
       <div className="space-y-4">
         <h2 className="text-xl font-bold tracking-tight">{dict.about.breakdown}</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
-            <h3 className="text-xs font-semibold uppercase text-zinc-400 tracking-wider">{dict.about.frontend}</h3>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="space-y-3 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+              {dict.about.frontend}
+            </h3>
             <div className="flex flex-wrap gap-2">
-              {["JavaScript (ES6+)", "TypeScript", "React 19", "Next.js 16", "Tailwind CSS v4", "HTML5/CSS3", "Base UI"].map((item) => (
-                <span key={item} className="text-xs px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-medium">
+              {[
+                "JavaScript (ES6+)",
+                "TypeScript",
+                "React 19",
+                "Next.js 16",
+                "Tailwind CSS v4",
+                "HTML5/CSS3",
+                "Base UI",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-md bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
+                >
                   {item}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="p-5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
-            <h3 className="text-xs font-semibold uppercase text-zinc-400 tracking-wider">{dict.about.backend}</h3>
+          <div className="space-y-3 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+              {dict.about.backend}
+            </h3>
             <div className="flex flex-wrap gap-2">
-              {["Node.js", "Bun", "ESLint / Oxlint", "Git / GitHub", "REST APIs", "Vercel Deployment"].map((item) => (
-                <span key={item} className="text-xs px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-medium">
+              {[
+                "Node.js",
+                "Bun",
+                "ESLint / Oxlint",
+                "Git / GitHub",
+                "REST APIs",
+                "Vercel Deployment",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-md bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
+                >
                   {item}
                 </span>
               ))}
@@ -141,13 +156,13 @@ export default async function AboutPage({
       <SeparatorRoot className="border-zinc-200 dark:border-zinc-800" />
 
       {/* Connect Box */}
-      <div className="p-6 rounded-xl bg-zinc-900 text-zinc-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col items-center justify-between gap-4 rounded-xl bg-zinc-900 p-6 text-zinc-100 sm:flex-row">
         <div className="space-y-1 text-center sm:text-left">
           <h3 className="text-base font-semibold">{dict.about.workTogether}</h3>
           <p className="text-xs text-zinc-400">{dict.about.workTogetherSub}</p>
         </div>
         <Link href={`/${lang}/contact`}>
-          <Button className="h-9 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 text-xs font-medium rounded-md flex items-center gap-1.5 shrink-0">
+          <Button className="flex h-9 shrink-0 items-center gap-1.5 rounded-md bg-zinc-100 px-4 text-xs font-medium text-zinc-900 hover:bg-zinc-200">
             <span>{dict.about.contactMe}</span>
           </Button>
         </Link>

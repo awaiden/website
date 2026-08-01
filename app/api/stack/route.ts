@@ -20,7 +20,8 @@ export async function GET() {
     // 1. Fetch the exact HTML page of the GitHub starred list
     const listRes = await fetch("https://github.com/stars/awaiden/lists/featured", {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, Gecko) Chrome/120.0.0.0 Safari/537.36",
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       },
       next: { revalidate: 0 },
@@ -32,7 +33,9 @@ export async function GET() {
       const html = await listRes.text();
       // Extract repositories inside #user-list-repositories section
       const userListSection = html.split('id="user-list-repositories"')[1] || html;
-      const matches = Array.from(userListSection.matchAll(/href="\/([a-zA-Z0-9_-]+\/[a-zA-Z0-9_\-.]+)"/g));
+      const matches = Array.from(
+        userListSection.matchAll(/href="\/([a-zA-Z0-9_-]+\/[a-zA-Z0-9_\-.]+)"/g),
+      );
 
       const extracted = new Set<string>();
       for (const match of matches) {
@@ -95,7 +98,8 @@ export async function GET() {
           id: repoPath,
           name: name || repoPath,
           full_name: repoPath,
-          description: "High-performance, accessible UI primitive registry designed for modern React & Next.js applications.",
+          description:
+            "High-performance, accessible UI primitive registry designed for modern React & Next.js applications.",
           html_url: `https://github.com/${repoPath}`,
           homepage: "https://ui.awaiden.com",
           language: "TypeScript",
@@ -103,7 +107,7 @@ export async function GET() {
           forks: 0,
           topics: ["TypeScript", "Base UI", "Tailwind v4", "React"],
         };
-      })
+      }),
     );
 
     return NextResponse.json({
@@ -123,7 +127,8 @@ export async function GET() {
             id: "awaiden/adn-ui",
             name: "adn-ui",
             full_name: "awaiden/adn-ui",
-            description: "High-performance, accessible UI primitive registry designed for modern React & Next.js applications.",
+            description:
+              "High-performance, accessible UI primitive registry designed for modern React & Next.js applications.",
             html_url: "https://github.com/awaiden/adn-ui",
             homepage: "https://ui.awaiden.com",
             language: "TypeScript",
@@ -133,7 +138,7 @@ export async function GET() {
           },
         ],
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

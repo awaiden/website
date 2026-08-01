@@ -1,10 +1,10 @@
-import en from "@/dictionaries/en.json";
-import tr from "@/dictionaries/tr.json";
-import es from "@/dictionaries/es.json";
 import de from "@/dictionaries/de.json";
+import en from "@/dictionaries/en.json";
+import es from "@/dictionaries/es.json";
 import fr from "@/dictionaries/fr.json";
 import it from "@/dictionaries/it.json";
 import ja from "@/dictionaries/ja.json";
+import tr from "@/dictionaries/tr.json";
 import zh from "@/dictionaries/zh.json";
 
 const clientDictionaries = { en, tr, es, de, fr, it, ja, zh };

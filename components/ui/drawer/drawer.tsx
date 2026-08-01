@@ -1,10 +1,8 @@
 "use client";
 
 import "./drawer.css";
-
-import React from "react";
-
 import { Drawer as BaseDrawer } from "@base-ui/react/drawer";
+import React from "react";
 import { cn } from "tailwind-variants";
 
 import { DrawerContext, useDrawerContext } from "./drawer.context";
@@ -72,11 +70,7 @@ export const DrawerTrigger = ({
 }: DrawerTriggerProps) => {
   const { slots } = useDrawerContext();
   return (
-    <BaseDrawer.Trigger
-      className={cn(slots.trigger(), className)}
-      render={render}
-      {...props}
-    >
+    <BaseDrawer.Trigger className={cn(slots.trigger(), className)} render={render} {...props}>
       {children}
     </BaseDrawer.Trigger>
   );
@@ -155,11 +149,7 @@ export const DrawerClose = ({
 }: DrawerCloseProps) => {
   const { slots } = useDrawerContext();
   return (
-    <BaseDrawer.Close
-      className={cn(slots.close(), className)}
-      render={render}
-      {...props}
-    >
+    <BaseDrawer.Close className={cn(slots.close(), className)} render={render} {...props}>
       {children}
     </BaseDrawer.Close>
   );

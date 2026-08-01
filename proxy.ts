@@ -19,17 +19,13 @@ export function proxy(request: NextRequest) {
 
   // Check if there is any supported locale in the pathname
   const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
   if (pathnameHasLocale) return;
 
   // Skip internal paths, static files, and API routes
-  if (
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/_next") ||
-    pathname.includes(".")
-  ) {
+  if (pathname.startsWith("/api") || pathname.startsWith("/_next") || pathname.includes(".")) {
     return;
   }
 

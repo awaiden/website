@@ -16,8 +16,7 @@ export type Locale = keyof typeof dictionaries;
 export const locales: Locale[] = ["en", "tr", "es", "de", "fr", "it", "ja", "zh"];
 export const defaultLocale: Locale = "en";
 
-export const hasLocale = (locale: string): locale is Locale =>
-  locale in dictionaries;
+export const hasLocale = (locale: string): locale is Locale => locale in dictionaries;
 
 export const getDictionary = async (locale: string) => {
   if (!hasLocale(locale)) return dictionaries[defaultLocale]();

@@ -1,12 +1,32 @@
 {
-  "name": "next",
-  "version": "0.1.0",
-  "private": true,
+  "name": "awaiden-portfolio",
+  "version": "1.0.0",
+  "description": "awaiden's personal developer portfolio, project showcase, and interactive workspace built with Next.js 16, Base UI, adn-ui, Tailwind CSS v4, and 8-language i18n.",
+  "keywords": [
+    "adn-ui",
+    "awaiden",
+    "base-ui",
+    "i18n",
+    "nextjs",
+    "portfolio",
+    "react",
+    "tailwindcss",
+    "typescript"
+  ],
+  "homepage": "https://awaiden.com",
+  "license": "MIT",
+  "author": "awaiden (https://github.com/awaiden)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awaiden/next.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "prepare": "husky"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -28,10 +48,27 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
+    "oxfmt": "^0.61.0",
+    "oxlint": "^1.76.0",
     "postcss-tw-auto-reference": "^0.1.1",
     "shadcn": "^4.16.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "oxlint",
+      "oxfmt"
+    ],
+    "*.{json,css,md}": [
+      "oxfmt"
+    ]
+  },
+  "engines": {
+    "bun": ">=1.0.0",
+    "node": ">=22.0.0"
   },
   "ignoreScripts": [
     "sharp",
